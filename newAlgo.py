@@ -70,38 +70,38 @@ for item in featureList:
 #print len(normalizedFeatures), normalizedFeatures[0]
 ################################################################################################################################
 
-for i in range(featureSize):					# dividing the features in training and test
+for i in range(featureSize):					
 	a = randint(0,9)
 	if (a<5) and testCount < testSize:
-		testList.append(normalizedFeatures[i])
+		testList.append(normalizedFeatures[i])					# dividing the features in training and test
 		testLabel.append(labelList[i])
 	else:
 		trainList.append(normalizedFeatures[i])
 		trainLabel.append(labelList[i])
-
-learningRate = 0.005							# implementation of log regression
+##############################################################################
+learningRate = 0.005							
 regularization = 0.001
 featureArr = np.array(trainList, dtype=np.float)
 labelArr = np.array(trainLabel)
 print featureArr.shape[1]
 weights = np.zeros(featureArr.shape[1])
 
-for iterator in xrange(30000):
+for iterator in xrange(30000):										# implementation of log regression
 	scores = np.dot(featureArr, weights)
 	predictions = 1/(1+np.exp(-scores))
 
 	outputError = labelArr - predictions
 	gradient = np.dot(featureArr.T, outputError)
 	temp = np.dot(weights,weights)
-	weights += (.5* regularization*temp) +learningRate * gradient
+	weights += (.5* regularization*temp) +learningRate * gradient		# need to add noise vector here
 #print temp
-
+############################################################################
 #print weights
-testPrediction = list()						# getting prediction for test set
+testPrediction = list()						
 testFeature = np.array(testList, dtype = np.float)
 for item in testFeature:
 	score = np.dot(item, weights)
-	sigmoid = 1/(1+np.exp(-score))
+	sigmoid = 1/(1+np.exp(-score))									# getting prediction for test set
 	if sigmoid > 0.5:
 		testPrediction.append(1)
 	else:
