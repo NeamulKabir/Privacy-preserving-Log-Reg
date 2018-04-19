@@ -78,8 +78,9 @@ for i in range(featureSize):
 		trainList.append(normalizedFeatures[i])
 		trainLabel.append(labelList[i])
 
+########################################################################################################################
 
-logisticRegr = LogisticRegression()
+logisticRegr = LogisticRegression(penalty = 'l2', C= 0.01)		# regularization parameter included
 
 logisticRegr.fit(trainList, trainLabel)
 testSample = np.array(testList)
@@ -112,6 +113,7 @@ accuracy = float(float(tp+tn)/float(tp+tn+fp+fn))
 f1_score = 2*precision*recall / (precision+recall)
 
 print testSize, match, mPer, mismatch, mmPer, precision, recall, accuracy, f1_score
+
 
 
 
